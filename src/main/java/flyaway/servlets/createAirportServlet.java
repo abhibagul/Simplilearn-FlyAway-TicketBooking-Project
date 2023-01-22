@@ -3,13 +3,11 @@ package flyaway.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.exception.ConstraintViolationException;
 
 import flyaway.entities.Airlines;
+import flyaway.entities.Airports;
 import flyaway.entities.Customer;
 import flyaway.helper.FactoryProvider;
 import jakarta.servlet.ServletException;
@@ -17,17 +15,16 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
 /**
- * Servlet implementation class createAirlineServlet
+ * Servlet implementation class createAirportServlet
  */
-public class createAirlineServlet extends HttpServlet {
+public class createAirportServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * Default constructor. 
      */
-    public createAirlineServlet() {
+    public createAirportServlet() {
         // TODO Auto-generated constructor stub
     }
 
@@ -43,7 +40,7 @@ public class createAirlineServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		// TODO Auto-generated method stub
 		String error = "";
 		
 		HttpSession session=request.getSession();
@@ -57,35 +54,26 @@ public class createAirlineServlet extends HttpServlet {
 		
 		try {
 			
-			
-
-			if(customer_session != null){
-				if(!customer_session.getUserRole().equals("Admin")){
-					response.sendRedirect(request.getContextPath() + "/");
-				}
-			}else{
-				response.sendRedirect(request.getContextPath() + "/");
-			}
-			
 			//name,email,phone
 			String airName = request.getParameter("airName");
-			String airEmail = request.getParameter("airEmail");
-			String airPhone = request.getParameter("airPhone");
+			String airCode = request.getParameter("airCode");
+			String airCountry = request.getParameter("airCountry");
 			
 			//creating object
-			Airlines airline = new Airlines(airName, airEmail, airPhone);
+//			Airlines airline = new Airlines(airName, airEmail, airPhone);
+			Airports airport = new Airports(airName, airCode, airCountry);
 
 			//hibernate:save
 			Session s = FactoryProvider.getFactory().openSession();
 			Transaction tx = s.beginTransaction();
 			
-			s.saveOrUpdate(airline);
+			s.saveOrUpdate(airport);
 			tx.commit();
 			s.close();
 			
 			response.setContentType("text/html");
 			PrintWriter out = response.getWriter();
-			out.println("<h1>Airline added successfully</h1>");
+			out.println("<h1>Airport added successfully</h1>");
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -97,12 +85,11 @@ public class createAirlineServlet extends HttpServlet {
 		finally {
 			System.out.println("err:::" + error);
 			if(error.length() > 0) {
-				response.sendRedirect( request.getContextPath() + "/manageAirlines/createAirlines.jsp?error="+error);
+				response.sendRedirect( request.getContextPath() + "/manageAirports/createAirport.jsp?error="+error);
 			}else {
-				response.sendRedirect( request.getContextPath() + "/manageAirlines.jsp");
+				response.sendRedirect( request.getContextPath() + "/manageAirports.jsp");
 			}
 		}
-		
 	}
 
 }

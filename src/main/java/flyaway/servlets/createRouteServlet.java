@@ -3,14 +3,12 @@ package flyaway.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.exception.ConstraintViolationException;
 
-import flyaway.entities.Airlines;
+import flyaway.entities.Airports;
 import flyaway.entities.Customer;
+import flyaway.entities.Route;
 import flyaway.helper.FactoryProvider;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -19,15 +17,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class createAirlineServlet
+ * Servlet implementation class createRouteServlet
  */
-public class createAirlineServlet extends HttpServlet {
+public class createRouteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * Default constructor. 
      */
-    public createAirlineServlet() {
+    public createRouteServlet() {
         // TODO Auto-generated constructor stub
     }
 
@@ -44,8 +42,7 @@ public class createAirlineServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String error = "";
-		
+		String error="";
 		HttpSession session=request.getSession();
 		
 		Customer customer_session = (Customer) session.getAttribute("user");
@@ -57,52 +54,45 @@ public class createAirlineServlet extends HttpServlet {
 		
 		try {
 			
-			
+			String rtAirline = request.getParameter("rtAirline");
+			String rtSource = request.getParameter("rtSource");
+			String rtDestination = request.getParameter("rtDestination");
 
-			if(customer_session != null){
-				if(!customer_session.getUserRole().equals("Admin")){
-					response.sendRedirect(request.getContextPath() + "/");
-				}
-			}else{
-				response.sendRedirect(request.getContextPath() + "/");
-			}
+			String rtDeparture = request.getParameter("rtDeparture");
+			String rtArrival = request.getParameter("rtArrival");
+			String rtDate = request.getParameter("rtDate");
+			String rtTicketPrice = request.getParameter("rtTicketPrice");
+			String rtSeats = request.getParameter("rtSeats");
 			
-			//name,email,phone
-			String airName = request.getParameter("airName");
-			String airEmail = request.getParameter("airEmail");
-			String airPhone = request.getParameter("airPhone");
 			
 			//creating object
-			Airlines airline = new Airlines(airName, airEmail, airPhone);
+			Route route = new Route(Integer.parseInt(rtSource), Integer.parseInt(rtDestination), Integer.parseInt(rtTicketPrice), Integer.parseInt(rtAirline), rtDate, rtDeparture, rtArrival, Integer.parseInt(rtSeats));
 
 			//hibernate:save
 			Session s = FactoryProvider.getFactory().openSession();
 			Transaction tx = s.beginTransaction();
 			
-			s.saveOrUpdate(airline);
+			s.saveOrUpdate(route);
 			tx.commit();
 			s.close();
 			
 			response.setContentType("text/html");
 			PrintWriter out = response.getWriter();
-			out.println("<h1>Airline added successfully</h1>");
+			out.println("<h1>Airport added successfully</h1>");
 			
 		}catch(Exception e) {
 			e.printStackTrace();
-			error = e.getMessage();;
+			error = e.getMessage();
 		}
-		
-		
 		
 		finally {
 			System.out.println("err:::" + error);
 			if(error.length() > 0) {
-				response.sendRedirect( request.getContextPath() + "/manageAirlines/createAirlines.jsp?error="+error);
+				response.sendRedirect( request.getContextPath() + "/manageRoute/createRoute.jsp?error="+error);
 			}else {
-				response.sendRedirect( request.getContextPath() + "/manageAirlines.jsp");
+				response.sendRedirect( request.getContextPath() + "/manageRoute.jsp");
 			}
 		}
-		
 	}
 
 }

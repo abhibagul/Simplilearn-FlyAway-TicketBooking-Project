@@ -1,3 +1,8 @@
+<%@page import="java.util.List"%>
+<%@page import="flyaway.entities.Airports"%>
+<%@page import="org.hibernate.Query"%>
+<%@page import="flyaway.helper.FactoryProvider"%>
+<%@page import="org.hibernate.Session"%>
 <%@page import="flyaway.entities.Customer"%>
 <%
 
@@ -24,9 +29,8 @@ Customer customer_session_nav = (Customer)session.getAttribute("user");
           		
           		
 		          <li><a href="<%= request.getContextPath() %>/manageAirlines.jsp" class="nav-link px-2">Manage Airlines</a></li>
-		          <li><a href="#" class="nav-link px-2 ">Manage Routes</a></li>
-		          <li><a href="#" class="nav-link px-2 ">Manage Destinations</a></li>
-		          <li><a href="<%= request.getContextPath() %>/manageBookings.jsp" class="nav-link px-2">Manage Bookings</a></li>
+		          <li><a href="<%= request.getContextPath() %>/manageRoute.jsp" class="nav-link px-2 ">Manage Routes</a></li>
+		          <li><a href="<%= request.getContextPath() %>/manageAirports.jsp" class="nav-link px-2 ">Manage Airports</a></li>
           		
           		<%
           	}
@@ -64,16 +68,32 @@ Customer customer_session_nav = (Customer)session.getAttribute("user");
       </div>
     </div>
   </header>
+  <%
+  Session sAirList = FactoryProvider.getFactory().openSession();
+  Query airList = sAirList.createQuery("FROM Airports ");
+  List<Airports> allAirportsList = airList.list();
+  
+  
+  
+  %>
   <div class="nav-scroller bg-body shadow-sm mb-3 p-3">
   <div class="container">
  	<div class="row">
  		<div class="col-sm-3">
  			<div class="form-floating">
 			  <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-			    <option selected>Open this select menu</option>
-			    <option value="1">One</option>
-			    <option value="2">Two</option>
-			    <option value="3">Three</option>
+			    <%
+			    
+			    if(allAirportsList.size() > 0){
+			  	  for(Airports airport:allAirportsList){
+			  		  %>
+			  		  <option value="<%= airport.getId() %>"> <%= airport.getCode() %> -  <%= airport.getName() %> </option>			  		  
+			  		  <%			  		 
+			  	  }
+			  	  
+			    }
+			    
+			    %>
 			  </select>
 			  <label for="floatingSelect">Source</label>
 			</div>
@@ -81,10 +101,18 @@ Customer customer_session_nav = (Customer)session.getAttribute("user");
  		<div class="col-sm-3">
  			<div class="form-floating">
 			  <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-			    <option selected>Open this select menu</option>
-			    <option value="1">One</option>
-			    <option value="2">Two</option>
-			    <option value="3">Three</option>
+			     <%
+			    
+			    if(allAirportsList.size() > 0){
+			  	  for(Airports airport:allAirportsList){
+			  		  %>
+			  		  <option value="<%= airport.getId() %>"> <%= airport.getCode() %> -  <%= airport.getName() %> </option>			  		  
+			  		  <%			  		 
+			  	  }
+			  	  
+			    }
+			    
+			    %>
 			  </select>
 			  <label for="floatingSelect">Destination</label>
 			</div>
@@ -96,7 +124,7 @@ Customer customer_session_nav = (Customer)session.getAttribute("user");
 		
 		%>
  			 <div class="form-floating">
-			     <input type="date" min="<%= dateStr %>" class="form-control last" name="regPhone" id="regPhone" required placeholder="<%= dateStr %>">
+			     <input type="date" min="<%= dateStr %>" class="form-control last" value="<%= dateStr %>" name="regPhone" id="regPhone" required placeholder="<%= dateStr %>">
 			     <label for="regPhone">Travel Date</label>
 			   </div>
  		</div>

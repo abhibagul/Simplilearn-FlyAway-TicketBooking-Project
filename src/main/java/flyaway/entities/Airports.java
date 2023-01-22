@@ -51,7 +51,7 @@ public class Airports {
 		super();
 	}
 	
-	public Airports( String name, String code) {
+	public Airports( String name, String code, String country) {
 		super();
 		this.name = name;
 		this.code = code;

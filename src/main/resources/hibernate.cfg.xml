@@ -20,6 +20,7 @@
 		<mapping class="flyaway.entities.Airlines"/>
 		<mapping class="flyaway.entities.Customer"/>
 		<mapping class="flyaway.entities.Airports"/>
+		<mapping class="flyaway.entities.Route"/>
 	</session-factory>
 </hibernate-configuration>
 
