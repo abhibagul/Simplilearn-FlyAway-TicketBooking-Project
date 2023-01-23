@@ -21,6 +21,7 @@ if(customer_session != null){
 	
 }else{
 	response.sendRedirect(request.getContextPath() + "/");
+	return;
 }
 
 if(request.getParameter("bookId") != null && request.getParameter("bookSeats") != null){

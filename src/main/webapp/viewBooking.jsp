@@ -22,6 +22,7 @@ if(customer_session != null){
 	
 }else{
 	response.sendRedirect(request.getContextPath() + "/");
+	return;
 }
 
 if(request.getParameter("txnid") != null){
@@ -167,7 +168,7 @@ if(request.getParameter("txnid") != null){
 					<%= ticket.getPassangerAge() %>
 				</div>
 				<div class="col-sm-2">
-					<h6 class="mb-0 mt-2 text-center fw-bold text-dark"><%= ticket.getSeatNo() %></h6>
+					<h6 class="mb-0 mt-2 text-center fw-bold text-dark"><%  if(transaction_status.equals("success")){ %> <%= ticket.getSeatNo() %> <% }else{ %> N/A <% } %></h6>
 				</div>
 				
 			</div>

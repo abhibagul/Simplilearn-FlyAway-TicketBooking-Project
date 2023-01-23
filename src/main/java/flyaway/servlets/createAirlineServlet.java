@@ -62,9 +62,11 @@ public class createAirlineServlet extends HttpServlet {
 			if(customer_session != null){
 				if(!customer_session.getUserRole().equals("Admin")){
 					response.sendRedirect(request.getContextPath() + "/");
+					return;
 				}
 			}else{
 				response.sendRedirect(request.getContextPath() + "/");
+				return;
 			}
 			
 			//name,email,phone

@@ -63,9 +63,11 @@ public class createTicketServlet extends HttpServlet {
 			if(customer_session != null){
 				if(!customer_session.getUserRole().equals("Customer")){
 					response.sendRedirect(request.getContextPath() + "/");
+					return;
 				}
 			}else{
 				response.sendRedirect(request.getContextPath() + "/");
+				return;
 			}
 			
 			//name,email,phone
