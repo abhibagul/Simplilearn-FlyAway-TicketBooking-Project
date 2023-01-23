@@ -93,8 +93,23 @@ if(customer_session != null){
 			<div class=" mb-3 mt-2 col-sm-4">
 			<div class="p-3 bg-body shadow-sm">
 				<h3 class="display-8 fw-bold"><%= airport.getCode() %></h3>
-				<hr/>
+				
 				<span> <b> <%= airport.getName() %></b> <br/> <%= airport.getCountry() %></span>
+				<hr/>
+				<div class="row">
+				<div class="col-sm-6">
+				<form method="post" action="<%= request.getContextPath() %>/manageAirports/modifyAirport.jsp">
+					<input type="hidden" name="airportId" value="<%= airport.getId() %>"/>
+					<input type="submit" class="btn btn-outline-primary" value="Edit"/>
+				</form>
+				</div>
+				<div class="col-sm-6 text-end">
+				<form method="post" action="<%= request.getContextPath() %>/removeAirportServlet">
+					<input type="hidden" name="airportId" value="<%= airport.getId() %>"/>
+					<input type="submit" class="btn btn-outline-danger" value="Delete"/>
+				</form>
+				</div>
+				</div>
 				</div>
 			</div>
 			

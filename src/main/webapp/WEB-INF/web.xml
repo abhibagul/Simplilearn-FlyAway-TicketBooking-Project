@@ -52,6 +52,30 @@
   	<description></description>
   	<servlet-class>flyaway.servlets.removeRouteServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>removeAirportServlet</servlet-name>
+  	<display-name>removeAirportServlet</display-name>
+  	<description></description>
+  	<servlet-class>flyaway.servlets.removeAirportServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>modifyAirportServlet</servlet-name>
+  	<display-name>modifyAirportServlet</display-name>
+  	<description></description>
+  	<servlet-class>flyaway.servlets.modifyAirportServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>removeAirlineServlet</servlet-name>
+  	<display-name>removeAirlineServlet</display-name>
+  	<description></description>
+  	<servlet-class>flyaway.servlets.removeAirlineServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>modifyAirlineServlet</servlet-name>
+  	<display-name>modifyAirlineServlet</display-name>
+  	<description></description>
+  	<servlet-class>flyaway.servlets.modifyAirlineServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>createAirlineServlet</servlet-name>
   	<url-pattern>/createAirlineServlet</url-pattern>
@@ -83,5 +107,21 @@
   <servlet-mapping>
   	<servlet-name>removeRouteServlet</servlet-name>
   	<url-pattern>/removeRouteServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>removeAirportServlet</servlet-name>
+  	<url-pattern>/removeAirportServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>modifyAirportServlet</servlet-name>
+  	<url-pattern>/modifyAirportServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>removeAirlineServlet</servlet-name>
+  	<url-pattern>/removeAirlineServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>modifyAirlineServlet</servlet-name>
+  	<url-pattern>/modifyAirlineServlet</url-pattern>
   </servlet-mapping>
 </web-app>

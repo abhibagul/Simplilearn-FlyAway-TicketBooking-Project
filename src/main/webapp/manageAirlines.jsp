@@ -94,6 +94,22 @@ if(customer_session != null){
 				<h3 class="display-8 fw-bold"><%= airline.getName() %></h3>
 				<hr/>
 				<span> <b>Support Number:</b> <%= airline.getPhone() %> <br/> <b>Support Email:</b> <%= airline.getEmail() %></span>
+				
+				<hr/>
+				<div class="row">
+					<div class="col-sm-6">
+					<form method="post" action="<%= request.getContextPath() %>/manageAirlines/modifyAirline.jsp">
+						<input type="hidden" name="airlineId" value="<%= airline.getId() %>"/>
+						<input type="submit" class="btn btn-outline-primary" value="Edit"/>
+					</form>
+					</div>
+					<div class="col-sm-6 text-end">
+					<form method="post" action="<%= request.getContextPath() %>/removeAirlineServlet">
+						<input type="hidden" name="airlineId" value="<%= airline.getId() %>"/>
+						<input type="submit" class="btn btn-outline-danger" value="Delete"/>
+					</form>
+					</div>
+				</div>
 				</div>
 			</div>
 			

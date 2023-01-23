@@ -58,6 +58,14 @@ public class Airports {
 		this.country = country;
 	}
 	
+	public Airports(int id, String name, String code, String country) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.code = code;
+		this.country = country;
+	}
+	
 	
 	
 	

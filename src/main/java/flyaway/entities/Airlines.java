@@ -39,6 +39,23 @@ public class Airlines {
 		return phone;
 	}
 	
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	public Airlines() {
 		super();
 	}
@@ -49,5 +66,14 @@ public class Airlines {
 		this.email = email;
 		this.phone = phone;
 	}
+
+	public Airlines(int id, String name, String email, String phone) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+	}
 		
+	
 }

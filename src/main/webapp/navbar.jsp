@@ -19,7 +19,7 @@ Customer customer_session_nav = (Customer)session.getAttribute("user");
         </a>
 		
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 px-3">
-          <li><a href="#" class="nav-link px-2">Search Flights</a></li>
+          
     
           <%
           if(customer_session_nav != null){
