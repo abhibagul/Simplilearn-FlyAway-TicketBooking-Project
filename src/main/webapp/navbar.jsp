@@ -59,7 +59,7 @@ if(request.getParameter("fsSeat") != null){
                <%
 		       if(customer_session_nav != null){
 		    	   %>
-		    	   <a href="" class="btn btn-primary me-2 btn-sm">My Profile</a>
+		    	   <a href="<%= request.getContextPath() %>/myProfile.jsp" class="btn btn-primary me-2 btn-sm">My Profile</a>
 		    	   <a href="<%= request.getContextPath() %>/logout.jsp" class="btn btn-primary me-2 btn-sm">Logout</a>
 		    	   <%
 		       }else{
