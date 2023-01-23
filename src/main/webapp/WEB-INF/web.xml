@@ -76,6 +76,12 @@
   	<description></description>
   	<servlet-class>flyaway.servlets.modifyAirlineServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>createTicketServlet</servlet-name>
+  	<display-name>createTicketServlet</display-name>
+  	<description></description>
+  	<servlet-class>flyaway.servlets.createTicketServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>createAirlineServlet</servlet-name>
   	<url-pattern>/createAirlineServlet</url-pattern>
@@ -123,5 +129,9 @@
   <servlet-mapping>
   	<servlet-name>modifyAirlineServlet</servlet-name>
   	<url-pattern>/modifyAirlineServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>createTicketServlet</servlet-name>
+  	<url-pattern>/createTicketServlet</url-pattern>
   </servlet-mapping>
 </web-app>

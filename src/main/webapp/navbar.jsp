@@ -8,7 +8,16 @@
 
 Customer customer_session_nav = (Customer)session.getAttribute("user");
 
-		
+String fsDate = request.getParameter("fsDate");
+String fsSource = request.getParameter("fsSource");
+String fsDest = request.getParameter("fsDest");
+String fsSeats = "1";
+
+if(request.getParameter("fsSeat") != null){
+	fsSeats = request.getParameter("fsSeat");
+}
+
+
 %>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/navbar.css"/>
 <header class="p-3 text-bg-white shadow-sm">
@@ -78,16 +87,18 @@ Customer customer_session_nav = (Customer)session.getAttribute("user");
   %>
   <div class="nav-scroller bg-body shadow-sm mb-3 p-3">
   <div class="container">
+  
+  	<form class="mb-0" method="post" action="<%= request.getContextPath() %>/flightSearch.jsp">
  	<div class="row">
  		<div class="col-sm-3">
  			<div class="form-floating">
-			  <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+			  <select name="fsSource" class="form-select" id="floatingSelect" aria-label="Floating label select example">
 			    <%
 			    
 			    if(allAirportsList.size() > 0){
 			  	  for(Airports airport:allAirportsList){
 			  		  %>
-			  		  <option value="<%= airport.getId() %>"> <%= airport.getCode() %> -  <%= airport.getName() %> </option>			  		  
+			  		  <option value="<%= airport.getId() %>" <% if(fsSource != null && Integer.parseInt(fsSource) == airport.getId()){ %> selected <% } %>> <%= airport.getCode() %> -  <%= airport.getName() %> </option>			  		  
 			  		  <%			  		 
 			  	  }
 			  	  
@@ -100,13 +111,13 @@ Customer customer_session_nav = (Customer)session.getAttribute("user");
  		</div>
  		<div class="col-sm-3">
  			<div class="form-floating">
-			  <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+			  <select  name="fsDest" class="form-select" id="floatingSelect" aria-label="Floating label select example">
 			     <%
 			    
 			    if(allAirportsList.size() > 0){
 			  	  for(Airports airport:allAirportsList){
 			  		  %>
-			  		  <option value="<%= airport.getId() %>"> <%= airport.getCode() %> -  <%= airport.getName() %> </option>			  		  
+			  		  <option value="<%= airport.getId() %>" <% if(fsSource != null && Integer.parseInt(fsDest) == airport.getId()){ %> selected <% } %> > <%= airport.getCode() %> -  <%= airport.getName() %> </option>			  		  
 			  		  <%			  		 
 			  	  }
 			  	  
@@ -119,18 +130,28 @@ Customer customer_session_nav = (Customer)session.getAttribute("user");
  		</div>
  		<div class="col-sm-2">
  		<%
-			java.sql.Date dateStr=new java.sql.Date(System.currentTimeMillis());
+ 			String dateStr = "";
+ 			if(fsDate!= null){
+ 				dateStr = fsDate;
+ 				
+ 			}else{
+ 				java.sql.Date dateStrDate =new java.sql.Date(System.currentTimeMillis());
+ 				dateStr = dateStrDate.toString();
+ 			}
+ 			
+ 			java.sql.Date todayDate =new java.sql.Date(System.currentTimeMillis());
+			
 		    			
 		
 		%>
  			 <div class="form-floating">
-			     <input type="date" min="<%= dateStr %>" class="form-control last" value="<%= dateStr %>" name="regPhone" id="regPhone" required placeholder="<%= dateStr %>">
+			     <input  name="fsDate" type="date" min="<%= todayDate %>" class="form-control last" value="<%= dateStr %>" name="regPhone" id="regPhone" required placeholder="<%= dateStr %>">
 			     <label for="regPhone">Travel Date</label>
 			   </div>
  		</div>
  		<div class="col-sm-2">
  			<div class="form-floating">
-			  <input type="number" class="form-control" id="floatingPassword"  value="1">
+			  <input min="1"   name="fsSeat" type="number" class="form-control" id="floatingPassword"  value="<%= fsSeats %>">
 			  <label for="floatingPassword">Number of Persons</label>
 			</div>
  		</div>
@@ -139,5 +160,7 @@ Customer customer_session_nav = (Customer)session.getAttribute("user");
  			<input type="submit" class="btn btn-primary block-btn" value="Search Flights" />
  		</div>
  	</div>
+ 	
+ 	</form>
  	</div>
 	</div><!-- tour details picker -->
